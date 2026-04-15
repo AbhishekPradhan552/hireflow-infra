@@ -1,6 +1,7 @@
 # Root ignores
 .env
 .env.*
+!.env.example
 
 # Mac
 .DS_Store
