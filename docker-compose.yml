@@ -1,0 +1,49 @@
+services:
+  backend:
+    build: ./hireflow-backend
+    container_name: hireflow-backend
+    ports:
+      - "5001:5001"
+    env_file:
+      - ./hireflow-backend/.env
+    depends_on:
+      redis:
+        condition: service_started
+    networks:
+      - hireflow-network
+
+  worker:
+    build: ./hireflow-backend
+    container_name: hireflow-worker
+    command: ["node", "src/workers/index.js"]
+    env_file:
+      - ./hireflow-backend/.env
+    depends_on:
+      redis:
+        condition: service_started
+    networks:
+      - hireflow-network
+
+  frontend:
+    build: ./hireflow-frontend
+    container_name: hireflow-frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./hireflow-frontend/.env
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      - hireflow-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: hireflow-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - hireflow-network
+
+networks:
+  hireflow-network:

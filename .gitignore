@@ -1,0 +1,27 @@
+# Root ignores
+.env
+.env.*
+
+# Mac
+.DS_Store
+
+# Logs
+*.log
+
+# Docker
+node_modules
+dist
+build
+
+# Ignore local envs inside subfolders
+hireflow-backend/.env
+hireflow-frontend/.env
+
+# Ignore uploads (if backend stores files)
+hireflow-backend/uploads
+
+# VS Code (optional)
+.vscode
+
+# Docker overrides (if  created later)
+docker-compose.override.yml
